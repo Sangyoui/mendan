@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="format-detection" content="telephone=no">
+<title>面談前アンケート</title>
+<style>
+:root{
+  --bg:#f4f6f8; --card:#ffffff; --ink:#1a1a1a; --sub:#4a4f55; --line:#c9d0d6;
+  --brand:#1f4e79; --brand-ink:#ffffff; --brand-soft:#e3edf7;
+  --on:#1f4e79; --on-bg:#e3edf7; --warn:#b3261e; --warn-bg:#fdecea; --ok:#1e6b3a;
+  --input:#fffbe6; --radius:12px;
+  --font:"BIZ UDPGothic","BIZ UDPゴシック","Hiragino Sans","ヒラギノ角ゴシック","Meiryo","メイリオ","Noto Sans JP",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:18px;line-height:1.7}
+.wrap{max-width:820px;margin:0 auto;padding:0 16px 120px}
+header.top{position:sticky;top:0;z-index:10;background:var(--brand);color:var(--brand-ink);box-shadow:0 2px 6px rgba(0,0,0,.15)}
+header.top .in{max-width:820px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:12px}
+header.top .t{font-weight:700;font-size:17px;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+header.top .p{font-size:15px;white-space:nowrap}
+.bar{height:6px;background:rgba(255,255,255,.25)}
+.bar>i{display:block;height:100%;width:0;background:#ffd166;transition:width .2s}
+h1{font-size:26px;line-height:1.4;margin:24px 0 8px;color:var(--brand)}
+.intro{background:var(--card);border-radius:var(--radius);padding:16px 18px;margin:12px 0;border:1px solid var(--line)}
+.intro p{margin:0 0 .6em}
+.intro p:last-child{margin:0}
+.privacy{background:#eef7f0;border:1px solid #b8dcc3;color:#1e4d2b}
+.howto{background:var(--brand-soft);border:1px solid #b9cfe6}
+.howto ol{margin:.2em 0 0;padding-left:1.4em}
+.restored{display:none;background:#fff4d6;border:1px solid #f0d27a;border-radius:var(--radius);padding:12px 16px;margin:12px 0}
+.restored.show{display:block}
+section.sec{margin:28px 0 0}
+section.sec>h2{background:var(--brand);color:var(--brand-ink);font-size:19px;line-height:1.5;margin:0;padding:12px 16px;border-radius:var(--radius) var(--radius) 0 0}
+section.sec>.body{background:var(--card);border:1px solid var(--line);border-top:0;border-radius:0 0 var(--radius) var(--radius);padding:4px 0}
+.subhead{background:var(--brand-soft);padding:10px 16px;font-weight:700;font-size:17px;border-bottom:1px solid var(--line)}
+.q{padding:16px 16px 18px;border-bottom:1px solid #e6eaee;scroll-margin-top:80px}
+.q:last-child{border-bottom:0}
+.q.hidden{display:none}
+.q.sub{padding-left:28px;background:#fafbfc}
+.q .lab{font-weight:700;font-size:18px;display:flex;gap:8px;align-items:baseline;margin:0 0 4px}
+.q .no{flex:0 0 auto;min-width:2em;color:var(--brand);font-weight:700}
+.q .req{display:inline-block;font-size:13px;font-weight:700;color:#fff;background:var(--warn);border-radius:6px;padding:0 6px;margin-left:6px;vertical-align:2px;line-height:1.6}
+.q .note{color:var(--sub);font-size:15px;margin:0 0 8px}
+.q.missing{background:var(--warn-bg)}
+.q.missing .lab::after{content:"未回答です";color:var(--warn);font-size:14px;margin-left:auto;font-weight:700;white-space:nowrap}
+.opts{display:grid;gap:10px;margin-top:10px;grid-template-columns:repeat(auto-fit,minmax(var(--w,9em),1fr))}
+.opts.compact{grid-template-columns:repeat(var(--n),1fr);gap:8px}
+.opts.compact .opt{flex-direction:column;justify-content:flex-start;text-align:center;gap:6px;padding:10px 2px;min-height:84px;font-size:15.5px;letter-spacing:-.02em}
+.opt{appearance:none;-webkit-appearance:none;font:inherit;font-size:17px;line-height:1.4;text-align:left;
+  display:flex;align-items:center;gap:12px;min-height:56px;padding:10px 14px;border:2px solid var(--line);
+  border-radius:10px;background:#fff;color:var(--ink);cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.opt:hover{border-color:#8fa6bd}
+.opt:focus-visible{outline:3px solid #ffb703;outline-offset:2px}
+.opt .bx{flex:0 0 auto;width:30px;height:30px;border:2.5px solid #5b6670;border-radius:6px;background:#fff;display:grid;place-items:center}
+.opt .bx svg{width:24px;height:24px;opacity:0}
+.opt[aria-checked="true"]{border-color:var(--on);background:var(--on-bg);font-weight:700}
+.opt[aria-checked="true"] .bx{border-color:var(--on);background:var(--on)}
+.opt[aria-checked="true"] .bx svg{opacity:1}
+input.txt,textarea.txt{font:inherit;font-size:18px;width:100%;padding:12px 14px;border:2px solid var(--line);border-radius:10px;background:var(--input);color:var(--ink);margin-top:8px}
+input.txt:focus,textarea.txt:focus{outline:3px solid #ffb703;outline-offset:1px;border-color:#8fa6bd}
+input.short{max-width:12em}
+textarea.txt{min-height:7.5em;resize:vertical;line-height:1.6}
+.unit{margin-left:8px;color:var(--sub)}
+.finish{margin:32px 0 0;background:var(--card);border:2px solid var(--brand);border-radius:var(--radius);padding:18px}
+.finish h2{margin:0 0 8px;font-size:21px;color:var(--brand)}
+.btn{appearance:none;font:inherit;font-size:18px;font-weight:700;border:0;border-radius:12px;padding:16px 18px;min-height:60px;width:100%;
+  cursor:pointer;margin:10px 0 0;display:flex;align-items:center;justify-content:center;gap:10px;touch-action:manipulation}
+.btn.primary{background:var(--brand);color:#fff}
+.btn.second{background:#fff;color:var(--brand);border:2px solid var(--brand)}
+.btn.plain{background:#eceff2;color:#333;font-weight:400;font-size:16px;min-height:48px}
+.btn:focus-visible{outline:3px solid #ffb703;outline-offset:2px}
+.btn[hidden]{display:none}
+.msg{margin:12px 0 0;padding:12px 14px;border-radius:10px;display:none;font-size:16px}
+.msg.show{display:block}
+.msg.err{background:var(--warn-bg);color:var(--warn);border:1px solid #f1b3ad}
+.msg.ok{background:#eef7f0;color:var(--ok);border:1px solid #b8dcc3}
+.msg ul{margin:.3em 0 0;padding-left:1.3em}
+.msg a{color:inherit}
+footer{color:var(--sub);font-size:14px;margin:28px 0 0;text-align:center}
+@media (max-width:420px){
+  body{font-size:17px}
+  h1{font-size:23px}
+  .opt{font-size:16px;padding:10px 12px;gap:10px}
+}
+@media print{
+  header.top,.finish,.restored,.howto,footer{display:none!important}
+  body{background:#fff;font-size:11pt}
+  .wrap{max-width:none;padding:0}
+  section.sec{break-inside:auto;margin-top:10px}
+  section.sec>h2{font-size:12pt;padding:4px 8px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .q{padding:6px 8px;break-inside:avoid}
+  .q.hidden{display:none}
+  .opts{gap:4px;margin-top:4px}
+  .opt,.opts.compact .opt{min-height:0;padding:3px 6px;font-size:10pt;border-width:1px;flex-direction:row}
+  .opt .bx{width:16px;height:16px;border-width:1.5px}
+  .opt .bx svg{width:13px;height:13px}
+  .opt[aria-checked="true"]{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  input.txt,textarea.txt{font-size:10pt;padding:4px 6px;border-width:1px;background:#fff}
+}
+</style>
+</head>
+<body>
+<header class="top" aria-label="回答の進み具合">
+  <div class="in"><div class="t">面談前アンケート</div><div class="p" id="prog">必須 0 / 0</div></div>
+  <div class="bar"><i id="progbar"></i></div>
+</header>
+<main class="wrap">
+  <h1 id="title"></h1>
+  <div class="intro" id="intro"></div>
+  <div class="intro privacy">
+    <p><strong>入力した内容は、この端末（スマホ・パソコン）の中だけで処理されます。</strong>インターネット上に送信・保存されることはありません。</p>
+    <p>入力途中の内容は、この端末のブラウザに一時的に保存されます。共用のパソコンを使った場合は、提出後にページ下の「入力内容を消去」を押してください。</p>
+  </div>
+  <div class="intro howto">
+    <strong>回答のしかた</strong>
+    <ol>
+      <li>あてはまる選択肢を<strong>タップ（クリック）</strong>すると✓が付きます。もう一度押すと外れます。</li>
+      <li><span class="req" style="margin:0">必須</span> の付いた質問にはすべて回答してください。</li>
+      <li>最後に「回答ファイルを保存」を押し、できたファイルを面談担当者へ<strong>メール・LINEなど指示された方法で</strong>送ってください。</li>
+    </ol>
+  </div>
+  <div class="restored" id="restored">前回の入力途中の内容を復元しました。<button type="button" class="btn plain" id="restoredClear" style="margin-top:8px">復元した内容を消して最初から入力する</button></div>
+  <form id="form" autocomplete="off" novalidate></form>
+
+  <div class="finish" id="finish">
+    <h2>回答を保存して送る</h2>
+    <p style="margin:0">回答が終わったら、下のボタンで回答ファイル（Excel形式）を作成してください。</p>
+    <button type="button" class="btn primary" id="btnSave">回答ファイルを保存する</button>
+    <button type="button" class="btn second" id="btnShare" hidden>LINE・メールなどで送る（共有）</button>
+    <div class="msg" id="msg" role="status" aria-live="polite"></div>
+    <button type="button" class="btn second" id="btnPrint">印刷する・PDFで保存する</button>
+    <button type="button" class="btn plain" id="btnClear">入力内容を消去する</button>
+  </div>
+  <footer>面談前の生活・健康状態に関するアンケート</footer>
+</main>
+
+<script src="lib/jszip.min.js"></script>
+<script>
+"use strict";
+const SPEC = {"title": "面談前の生活・健康状態に関するアンケート", "intro": "このアンケートは面接指導を担当する医師（産業医）、保健師があなたの健康状態を正しく把握する目的でお尋ねするものです。\n回答内容は、守秘義務のある医師等が診療録（カルテ）に準じた取扱いを行いますので、ご本人の同意なしに事業者（会社側）へそのまま開示されることはありません。\nご回答へのご協力、よろしくお願いいたします。", "items": [{"type": "text", "input": "date", "label": "記入日", "note": null, "required": false, "numbered": false, "cell": "C4", "id": "q0"}, {"type": "section", "no": 1, "title": "基本情報"}, {"type": "text", "input": "text", "label": "氏名", "note": null, "required": true, "numbered": true, "cell": "C7", "id": "q2"}, {"type": "choice", "label": "性別", "note": null, "required": true, "numbered": true, "options": [{"label": "男性", "cell": "C8"}, {"label": "女性", "cell": "E8"}, {"label": "回答しない", "cell": "G8"}], "id": "q3"}, {"type": "text", "input": "number", "label": "年齢", "note": "半角数字（歳）", "required": true, "numbered": true, "cell": "C9", "id": "q4"}, {"type": "choice", "label": "通勤時間", "note": null, "required": true, "numbered": true, "options": [{"label": "〜30分", "cell": "C10"}, {"label": "30分〜60分", "cell": "E10"}, {"label": "1時間〜1時間30分", "cell": "G10"}, {"label": "1時間30分以上", "cell": "I10"}], "id": "q5"}, {"type": "choice", "label": "通勤方法", "note": null, "required": true, "numbered": true, "options": [{"label": "公共交通機関（電車、バス等）", "cell": "C11"}, {"label": "徒歩、自転車等", "cell": "E11"}, {"label": "自動車（自家用車、社用車等）", "cell": "G11"}, {"label": "その他", "cell": "I11"}], "id": "q6"}, {"type": "text", "input": "text", "label": "最寄り駅", "note": null, "required": true, "numbered": false, "cell": "C12", "id": "q7"}, {"type": "choice", "label": "居住状況", "note": null, "required": true, "numbered": true, "options": [{"label": "家族と同居", "cell": "C13"}, {"label": "一人暮らし", "cell": "E13"}, {"label": "家族以外の人と同居", "cell": "G13"}, {"label": "その他", "cell": "I13"}], "id": "q8"}, {"type": "choice", "label": "先月の時間外・休日労働時間（概算）", "note": null, "required": true, "numbered": true, "options": [{"label": "〜20時間未満", "cell": "C14"}, {"label": "20〜45時間", "cell": "E14"}, {"label": "45〜60時間", "cell": "G14"}, {"label": "60〜80時間", "cell": "I14"}, {"label": "80時間以上", "cell": "C15"}, {"label": "休職中、その他", "cell": "E15"}], "id": "q9"}, {"type": "section", "no": 2, "title": "食生活・嗜好品についておたずねいたします。"}, {"type": "choice", "label": "食欲の有無", "note": null, "required": true, "numbered": true, "options": [{"label": "あり\n（普段と変わらない）", "cell": "C18"}, {"label": "やや低下している", "cell": "E18"}, {"label": "ない", "cell": "G18"}, {"label": "食べすぎてしまうことがある", "cell": "I18"}], "id": "q11"}, {"type": "choice", "label": "食事の回数（1日あたり）", "note": null, "required": true, "numbered": true, "options": [{"label": "3回", "cell": "C19"}, {"label": "2回", "cell": "E19"}, {"label": "1回", "cell": "G19"}, {"label": "不規則", "cell": "I19"}], "id": "q12"}, {"type": "choice", "label": "朝食を抜くことが週に3回以上ある", "note": null, "required": true, "numbered": true, "options": [{"label": "はい", "cell": "C20"}, {"label": "いいえ", "cell": "G20"}], "id": "q13"}, {"type": "choice", "label": "現在、たばこを習慣的に吸っていますか", "note": null, "required": true, "numbered": true, "options": [{"label": "はい", "cell": "C21"}, {"label": "いいえ", "cell": "E21"}, {"label": "以前は吸っていたが、\n最近1ヶ月間以上の間は吸っていない", "cell": "G21"}], "id": "q14"}, {"type": "choice", "label": "【たばこを「吸う」と答えた方】たばこの種類", "note": null, "required": false, "numbered": true, "options": [{"label": "加熱式", "cell": "C22"}, {"label": "紙巻き・葉巻き", "cell": "E22"}, {"label": "加熱式、紙巻き・葉巻きの両方", "cell": "G22"}], "id": "q15", "show_if": {"id": "q14", "eq": "はい"}}, {"type": "text", "input": "number", "label": "【たばこを「吸う」と答えた方】1日あたりの本数", "note": "半角数字（本/日）", "required": false, "numbered": true, "cell": "C23", "id": "q16", "show_if": {"id": "q14", "eq": "はい"}}, {"type": "choice", "label": "お酒を飲む頻度はどのくらいですか", "note": null, "required": true, "numbered": true, "options": [{"label": "毎日", "cell": "C24"}, {"label": "週5～6日", "cell": "E24"}, {"label": "週3～4日", "cell": "G24"}, {"label": "週1～2日", "cell": "I24"}, {"label": "月に1～3日", "cell": "C25"}, {"label": "月に1日未満", "cell": "E25"}, {"label": "飲まない（飲めない）", "cell": "G25"}], "id": "q17"}, {"type": "choice", "label": "飲酒日の1日当たりの飲酒量", "note": "日本酒1合（180ml）の目安：ビール（500ml）、焼酎（110ml）、ワイン（180ml）、ウイスキー（60ml）、缶チューハイ（350ml）", "required": false, "numbered": true, "options": [{"label": "1合未満", "cell": "C26"}, {"label": "1～2合未満", "cell": "E26"}, {"label": "2～3合未満", "cell": "G26"}, {"label": "3～5合未満", "cell": "I26"}, {"label": "5合以上", "cell": "C27"}], "id": "q18", "show_if": {"id": "q17", "ne": "飲まない（飲めない）", "answered": true}}, {"type": "section", "no": 3, "title": "睡眠の状況についておたずねいたします。"}, {"type": "choice", "label": "1日あたりの睡眠時間", "note": null, "required": true, "numbered": true, "options": [{"label": "6時間未満", "cell": "C30"}, {"label": "6〜8時間", "cell": "E30"}, {"label": "9時間以上", "cell": "G30"}], "id": "q20"}, {"type": "choice", "label": "睡眠で休養が十分にとれている", "note": null, "required": true, "numbered": true, "options": [{"label": "はい", "cell": "C31"}, {"label": "いいえ", "cell": "G31"}], "id": "q21"}, {"type": "note_q", "label": "【睡眠で休養がとれていない、と回答した方】以下のそれぞれについて「はい」「いいえ」を選んでください。", "numbered": true, "required": false, "show_if": {"id": "q21", "eq": "いいえ"}}, {"type": "choice", "label": "寝つきが悪い", "note": null, "required": false, "numbered": false, "options": [{"label": "はい", "cell": "C33"}, {"label": "いいえ", "cell": "G33"}], "id": "q23", "show_if": {"id": "q21", "eq": "いいえ"}, "sub": true}, {"type": "choice", "label": "眠りが浅い", "note": null, "required": false, "numbered": false, "options": [{"label": "はい", "cell": "C34"}, {"label": "いいえ", "cell": "G34"}], "id": "q24", "show_if": {"id": "q21", "eq": "いいえ"}, "sub": true}, {"type": "choice", "label": "夜中や早朝に目が覚め、目が覚めたあと眠れなくなる", "note": null, "required": false, "numbered": false, "options": [{"label": "はい", "cell": "C35"}, {"label": "いいえ", "cell": "G35"}], "id": "q25", "show_if": {"id": "q21", "eq": "いいえ"}, "sub": true}, {"type": "choice", "label": "朝起きたときにグッタリしている", "note": null, "required": false, "numbered": false, "options": [{"label": "はい", "cell": "C36"}, {"label": "いいえ", "cell": "G36"}], "id": "q26", "show_if": {"id": "q21", "eq": "いいえ"}, "sub": true}, {"type": "choice", "label": "その他", "note": null, "required": false, "numbered": false, "options": [{"label": "はい", "cell": "C37"}, {"label": "いいえ", "cell": "G37"}], "id": "q27", "show_if": {"id": "q21", "eq": "いいえ"}, "sub": true}, {"type": "text", "input": "text", "label": "「その他」の内容", "note": null, "required": false, "numbered": false, "cell": "C38", "id": "q28", "show_if": {"id": "q27", "eq": "はい"}, "sub": true}, {"type": "text", "input": "time", "label": "仕事がある日の起床時刻", "note": "半角数字でご入力ください。例）6:30", "required": true, "numbered": true, "cell": "C39", "id": "q29"}, {"type": "text", "input": "time", "label": "休日の起床時刻", "note": "半角数字でご入力ください。例）8:00", "required": true, "numbered": true, "cell": "C40", "id": "q30"}, {"type": "section", "no": 4, "title": "この2週間での気分の変化についておたずねします。"}, {"type": "choice", "label": "この2週間以上、毎日のように、ほとんど1日中ずっとゆううつであったり沈んだ気持ちでいましたか?", "note": null, "required": true, "numbered": true, "options": [{"label": "はい", "cell": "C43"}, {"label": "いいえ", "cell": "G43"}], "id": "q32"}, {"type": "choice", "label": "この2週間以上、ほとんどのことに興味がなくなっていたり、大抵いつもなら楽しめていたことが楽しめなくなっていましたか？", "note": null, "required": true, "numbered": true, "options": [{"label": "はい", "cell": "C44"}, {"label": "いいえ", "cell": "G44"}], "id": "q33"}, {"type": "section", "no": 5, "title": "ご自身の健康状態、仕事・プライベートでのお困りごと・ストレスなどについておたずねします。"}, {"type": "textarea", "label": "健康に関することで、困っていることはありますか？", "note": "困っていることがない場合は「なし」とご回答ください。", "required": true, "numbered": true, "cell": "B47", "id": "q35"}, {"type": "textarea", "label": "仕事のことで困っていることはありますか？", "note": "困っていることがない場合は「なし」とご回答ください。", "required": true, "numbered": true, "cell": "B49", "id": "q36"}, {"type": "textarea", "label": "仕事以外のことで困っていることストレスはありますか？", "note": "困っていることがない場合は「なし」とご回答ください。", "required": true, "numbered": true, "cell": "B51", "id": "q37"}, {"type": "section", "no": 6, "title": "仕事についておたずねします。"}, {"type": "choice", "label": "自分のペースで仕事ができる", "note": null, "required": true, "numbered": true, "options": [{"label": "「そうだ」", "cell": "C54"}, {"label": "「まあそうだ」", "cell": "E54"}, {"label": "「ややちがう」", "cell": "G54"}, {"label": "「ちがう」", "cell": "I54"}], "id": "q39"}, {"type": "choice", "label": "私の部署内で意見のくい違いがある", "note": null, "required": true, "numbered": true, "options": [{"label": "「そうだ」", "cell": "C55"}, {"label": "「まあそうだ」", "cell": "E55"}, {"label": "「ややちがう」", "cell": "G55"}, {"label": "「ちがう」", "cell": "I55"}], "id": "q40"}, {"type": "choice", "label": "仕事の内容は自分にあっている", "note": null, "required": true, "numbered": true, "options": [{"label": "「そうだ」", "cell": "C56"}, {"label": "「まあそうだ」", "cell": "E56"}, {"label": "「ややちがう」", "cell": "G56"}, {"label": "「ちがう」", "cell": "I56"}], "id": "q41"}, {"type": "choice", "label": "働きがいのある仕事だ", "note": null, "required": true, "numbered": true, "options": [{"label": "「そうだ」", "cell": "C57"}, {"label": "「まあそうだ」", "cell": "E57"}, {"label": "「ややちがう」", "cell": "G57"}, {"label": "「ちがう」", "cell": "I57"}], "id": "q42"}, {"type": "choice", "label": "上司とどのくらい気軽に話ができますか？", "note": null, "required": true, "numbered": true, "options": [{"label": "「非常に」気軽に話ができる", "cell": "C58"}, {"label": "「かなり」気軽に話ができる", "cell": "E58"}, {"label": "「多少」気軽に話ができる", "cell": "G58"}, {"label": "「全く」できない", "cell": "I58"}], "id": "q43"}, {"type": "choice", "label": "職場の同僚とどのくらい気軽に話ができますか？", "note": null, "required": true, "numbered": true, "options": [{"label": "「非常に」気軽に話ができる", "cell": "C59"}, {"label": "「かなり」気軽に話ができる", "cell": "E59"}, {"label": "「多少」気軽に\n話ができる", "cell": "G59"}, {"label": "「全く」できない", "cell": "I59"}], "id": "q44"}, {"type": "choice", "label": "あなたが困った時、上司はどのくらい頼りになりますか？", "note": null, "required": true, "numbered": true, "options": [{"label": "「非常に」頼りになる", "cell": "C60"}, {"label": "「かなり」頼りになる", "cell": "E60"}, {"label": "「多少」頼りになる", "cell": "G60"}, {"label": "「全く」頼りにならない", "cell": "I60"}], "id": "q45"}, {"type": "choice", "label": "あなたが困った時、職場の同僚はどのくらい頼りになりますか？", "note": null, "required": true, "numbered": true, "options": [{"label": "「非常に」頼りになる", "cell": "C61"}, {"label": "「かなり」頼りになる", "cell": "E61"}, {"label": "「多少」頼りになる", "cell": "G61"}, {"label": "「全く」頼りにならない", "cell": "I61"}], "id": "q46"}, {"type": "choice", "label": "仕事に満足だ", "note": null, "required": true, "numbered": true, "options": [{"label": "満足", "cell": "C62"}, {"label": "まあ満足", "cell": "E62"}, {"label": "やや不満足", "cell": "G62"}, {"label": "不満足", "cell": "I62"}], "id": "q47"}, {"type": "section", "no": 7, "title": "最近1ヶ月間（4週間）の勤務の状況（自身の仕事のパフォーマンスレベル）についておたずねします。"}, {"type": "text", "input": "number", "label": "病気やけががないときに発揮できる仕事の出来を100%として過去4週間の自身の仕事を評価してください。", "note": "0から100までの半角数字で入力して下さい。（%）", "required": true, "numbered": true, "cell": "C65", "id": "q49"}, {"type": "section", "no": 8, "title": "労働者の疲労蓄積度チェックリスト（2023年改正版 厚生労働省）"}, {"type": "sub", "text": "（1）最近1ヶ月間の自覚症状について、各質問に対し、最も当てはまる項目を選んでください。"}, {"type": "choice", "label": "イライラする", "note": null, "required": true, "numbered": true, "options": [{"label": "ほとんどない", "cell": "C69"}, {"label": "時々ある", "cell": "E69"}, {"label": "よくある", "cell": "G69"}], "id": "q52"}, {"type": "choice", "label": "不安だ", "note": null, "required": true, "numbered": true, "options": [{"label": "ほとんどない", "cell": "C70"}, {"label": "時々ある", "cell": "E70"}, {"label": "よくある", "cell": "G70"}], "id": "q53"}, {"type": "choice", "label": "落ち着かない", "note": null, "required": true, "numbered": true, "options": [{"label": "ほとんどない", "cell": "C71"}, {"label": "時々ある", "cell": "E71"}, {"label": "よくある", "cell": "G71"}], "id": "q54"}, {"type": "choice", "label": "ゆううつだ", "note": null, "required": true, "numbered": true, "options": [{"label": "ほとんどない", "cell": "C72"}, {"label": "時々ある", "cell": "E72"}, {"label": "よくある", "cell": "G72"}], "id": "q55"}, {"type": "choice", "label": "よく眠れない", "note": null, "required": true, "numbered": true, "options": [{"label": "ほとんどない", "cell": "C73"}, {"label": "時々ある", "cell": "E73"}, {"label": "よくある", "cell": "G73"}], "id": "q56"}, {"type": "choice", "label": "体の調子が悪い", "note": null, "required": true, "numbered": true, "options": [{"label": "ほとんどない", "cell": "C74"}, {"label": "時々ある", "cell": "E74"}, {"label": "よくある", "cell": "G74"}], "id": "q57"}, {"type": "choice", "label": "物事に集中できない", "note": null, "required": true, "numbered": true, "options": [{"label": "ほとんどない", "cell": "C75"}, {"label": "時々ある", "cell": "E75"}, {"label": "よくある", "cell": "G75"}], "id": "q58"}, {"type": "choice", "label": "することに間違いが多い", "note": null, "required": true, "numbered": true, "options": [{"label": "ほとんどない", "cell": "C76"}, {"label": "時々ある", "cell": "E76"}, {"label": "よくある", "cell": "G76"}], "id": "q59"}, {"type": "choice", "label": "仕事中、強い眠気に襲われる", "note": null, "required": true, "numbered": true, "options": [{"label": "ほとんどない", "cell": "C77"}, {"label": "時々ある", "cell": "E77"}, {"label": "よくある", "cell": "G77"}], "id": "q60"}, {"type": "choice", "label": "やる気が出ない", "note": null, "required": true, "numbered": true, "options": [{"label": "ほとんどない", "cell": "C78"}, {"label": "時々ある", "cell": "E78"}, {"label": "よくある", "cell": "G78"}], "id": "q61"}, {"type": "choice", "label": "へとへとだ（運動後を除く）", "note": "へとへと：非常に疲れて体に力がなくなったさま", "required": true, "numbered": true, "options": [{"label": "ほとんどない", "cell": "C79"}, {"label": "時々ある", "cell": "E79"}, {"label": "よくある", "cell": "G79"}], "id": "q62"}, {"type": "choice", "label": "朝、起きた時、ぐったりした疲れを感じる", "note": null, "required": true, "numbered": true, "options": [{"label": "ほとんどない", "cell": "C80"}, {"label": "時々ある", "cell": "E80"}, {"label": "よくある", "cell": "G80"}], "id": "q63"}, {"type": "choice", "label": "以前とくらべて、疲れやすい", "note": null, "required": true, "numbered": true, "options": [{"label": "ほとんどない", "cell": "C81"}, {"label": "時々ある", "cell": "E81"}, {"label": "よくある", "cell": "G81"}], "id": "q64"}, {"type": "choice", "label": "食欲がないと感じる", "note": null, "required": true, "numbered": true, "options": [{"label": "ほとんどない", "cell": "C82"}, {"label": "時々ある", "cell": "E82"}, {"label": "よくある", "cell": "G82"}], "id": "q65"}, {"type": "section", "no": 9, "title": "労働者の疲労蓄積度チェックリスト（2023年改正版 厚生労働省）"}, {"type": "sub", "text": "（2）最近1ヶ月間の勤務の状況について、各質問に対し最も当てはまる項目を選択して下さい。"}, {"type": "choice", "label": "1ヶ月の労働時間（時間外・休日労働時間を含む）", "note": null, "required": true, "numbered": true, "options": [{"label": "適当", "cell": "C86"}, {"label": "多い", "cell": "E86"}, {"label": "非常に多い", "cell": "G86"}], "id": "q68"}, {"type": "choice", "label": "不規則な勤務（予定の変更、突然の仕事）", "note": null, "required": true, "numbered": true, "options": [{"label": "少ない", "cell": "C87"}, {"label": "多い", "cell": "G87"}], "id": "q69"}, {"type": "choice", "label": "出張に伴う負担（頻度、拘束時間、時差など）", "note": null, "required": true, "numbered": true, "options": [{"label": "「ない」または「小さい」", "cell": "C88"}, {"label": "大きい", "cell": "G88"}], "id": "q70"}, {"type": "choice", "label": "深夜勤務に伴う負担", "note": "深夜勤務は午後10時〜午前5時の一部または全部を含む勤務のこと", "required": true, "numbered": true, "options": [{"label": "「ない」または「小さい」", "cell": "C89"}, {"label": "大きい", "cell": "E89"}, {"label": "非常に大きい", "cell": "G89"}], "id": "q71"}, {"type": "choice", "label": "休憩・仮眠の時間数及び施設", "note": null, "required": true, "numbered": true, "options": [{"label": "適切である", "cell": "C90"}, {"label": "不適切である", "cell": "G90"}], "id": "q72"}, {"type": "choice", "label": "仕事についての身体的負担", "note": "肉体的作業や寒冷・暑熱作業などの身体的な負担をいいます。", "required": true, "numbered": true, "options": [{"label": "小さい", "cell": "C91"}, {"label": "大きい", "cell": "E91"}, {"label": "非常に大きい", "cell": "G91"}], "id": "q73"}, {"type": "choice", "label": "仕事についての精神的負担", "note": null, "required": true, "numbered": true, "options": [{"label": "小さい", "cell": "C92"}, {"label": "大きい", "cell": "E92"}, {"label": "非常に大きい", "cell": "G92"}], "id": "q74"}, {"type": "choice", "label": "職場・顧客等の人間関係による負担", "note": null, "required": true, "numbered": true, "options": [{"label": "小さい", "cell": "C93"}, {"label": "大きい", "cell": "E93"}, {"label": "非常に大きい", "cell": "G93"}], "id": "q75"}, {"type": "choice", "label": "時間内に処理しきれない仕事", "note": null, "required": true, "numbered": true, "options": [{"label": "少ない", "cell": "C94"}, {"label": "多い", "cell": "E94"}, {"label": "非常に多い", "cell": "G94"}], "id": "q76"}, {"type": "choice", "label": "自分のペースでできない仕事", "note": null, "required": true, "numbered": true, "options": [{"label": "少ない", "cell": "C95"}, {"label": "多い", "cell": "E95"}, {"label": "非常に多い", "cell": "G95"}], "id": "q77"}, {"type": "choice", "label": "勤務時間外でも仕事のことが気にかかって仕方ない", "note": null, "required": true, "numbered": true, "options": [{"label": "ほとんどない", "cell": "C96"}, {"label": "時々ある", "cell": "E96"}, {"label": "よくある", "cell": "G96"}], "id": "q78"}, {"type": "choice", "label": "勤務日の睡眠時間", "note": null, "required": true, "numbered": true, "options": [{"label": "十分", "cell": "C97"}, {"label": "やや足りない", "cell": "E97"}, {"label": "足りない", "cell": "G97"}], "id": "q79"}, {"type": "choice", "label": "終業時刻から次の始業時刻の間にある休息時間", "note": "これを勤務間インターバルといいます。", "required": true, "numbered": true, "options": [{"label": "十分", "cell": "C98"}, {"label": "やや足りない", "cell": "E98"}, {"label": "足りない", "cell": "G98"}], "id": "q80"}]};
+const STORE_KEY = "mendan-mae-answers-v1";
+const CHECK_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 12.5l5 5L19.5 6.5" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+const ans = {};            // id -> value（選択式は選択肢のラベル、記入式は文字列）
+const byId = {};
+let lastFile = null;
+
+function el(tag, attrs, html){
+  const e = document.createElement(tag);
+  if (attrs) for (const k in attrs){ if (attrs[k] !== undefined && attrs[k] !== null) e.setAttribute(k, attrs[k]); }
+  if (html !== undefined) e.innerHTML = html;
+  return e;
+}
+function esc(s){ return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+function ew(s){ let n=0; for (const ch of s) n += ch.charCodeAt(0) < 0x2000 ? 0.55 : 1; return n; }
+
+/* ---------- 画面の組み立て ---------- */
+function build(){
+  document.getElementById("title").textContent = SPEC.title;
+  document.getElementById("intro").innerHTML = SPEC.intro.split("\n").map(p => "<p>"+esc(p)+"</p>").join("");
+  const form = document.getElementById("form");
+  let body = null, qno = 0;
+  for (const it of SPEC.items){
+    if (it.type === "section"){
+      const sec = el("section", {class:"sec"});
+      sec.appendChild(el("h2", null, esc(it.no + "．" + it.title)));
+      body = el("div", {class:"body"}); sec.appendChild(body); form.appendChild(sec);
+      continue;
+    }
+    if (!body){ body = el("div", {class:"sec"}); const s = el("section",{class:"sec"}); const b = el("div",{class:"body"}); s.appendChild(b); form.appendChild(s); body = b; }
+    if (it.type === "sub"){ body.appendChild(el("div", {class:"subhead"}, esc(it.text))); continue; }
+    const no = it.numbered ? String(++qno) : "";
+    const q = el("div", {class:"q" + (it.sub ? " sub" : ""), id: it.id ? "box-" + it.id : null});
+    it._el = q;
+    const labHtml = '<span class="no">' + esc(no) + '</span><span>' + esc(it.label) + (it.required ? '<span class="req">必須</span>' : '') + '</span>';
+    if (it.type === "note_q"){
+      q.appendChild(el("div", {class:"lab"}, labHtml));
+      body.appendChild(q); continue;
+    }
+    byId[it.id] = it;
+    const labId = "lab-" + it.id;
+    q.appendChild(el("div", {class:"lab", id: labId}, labHtml));
+    if (it.note) q.appendChild(el("div", {class:"note"}, esc(it.note)));
+    if (it.type === "choice"){
+      const mx = Math.max(...it.options.map(o => ew(o.label)));
+      const k = it.options.length;
+      const compact = k >= 2 && k <= 4 && mx <= 7;          // 短い選択肢は1行に並べる（マスの下に文字）
+      const w = mx <= 6 ? "6.2em" : mx <= 9 ? "8.5em" : mx <= 13 ? "11em" : "15em";
+      const box = el("div", {class:"opts" + (compact ? " compact" : ""), role:"radiogroup", "aria-labelledby": labId,
+                             style: compact ? "--n:" + k : "--w:" + w});
+      it.options.forEach((o, k) => {
+        const b = el("button", {type:"button", class:"opt", role:"radio", "aria-checked":"false", "data-k": k},
+          '<span class="bx">' + CHECK_SVG + '</span><span>' + esc(o.label) + '</span>');
+        b.addEventListener("click", () => { choose(it, o.label); });
+        box.appendChild(b);
+      });
+      q.appendChild(box);
+    } else if (it.type === "text"){
+      let inp;
+      const common = {class:"txt", id:"in-" + it.id, "aria-labelledby": labId};
+      if (it.input === "number"){
+        inp = el("input", Object.assign({type:"text", inputmode:"numeric", pattern:"[0-9]*", class:"txt short"}, {id:common.id, "aria-labelledby":labId}));
+      } else if (it.input === "time"){
+        inp = el("input", Object.assign({type:"time", class:"txt short"}, {id:common.id, "aria-labelledby":labId}));
+      } else if (it.input === "date"){
+        inp = el("input", Object.assign({type:"date", class:"txt short"}, {id:common.id, "aria-labelledby":labId}));
+      } else {
+        inp = el("input", Object.assign({type:"text"}, common));
+      }
+      inp.addEventListener("input", () => { setText(it, inp.value); });
+      q.appendChild(inp);
+      it._input = inp;
+    } else if (it.type === "textarea"){
+      const ta = el("textarea", {class:"txt", id:"in-" + it.id, rows:"4", "aria-labelledby": labId});
+      ta.addEventListener("input", () => { setText(it, ta.value); });
+      q.appendChild(ta); it._input = ta;
+    }
+    body.appendChild(q);
+  }
+}
+
+/* ---------- 回答の操作 ---------- */
+function choose(it, label){
+  ans[it.id] = (ans[it.id] === label) ? "" : label;     // 同じものを押すと外れる
+  paint(it); afterChange(it);
+}
+function setText(it, v){
+  if (it.input === "number") v = v.replace(/[０-９]/g, c => String.fromCharCode(c.charCodeAt(0) - 0xFEE0)).replace(/[^0-9.]/g, "");
+  if (it.input === "number" && it._input.value !== v) it._input.value = v;
+  ans[it.id] = v; afterChange(it);
+}
+function paint(it){
+  if (it.type !== "choice") return;
+  it._el.querySelectorAll(".opt").forEach(b => {
+    const k = +b.getAttribute("data-k");
+    b.setAttribute("aria-checked", ans[it.id] === it.options[k].label ? "true" : "false");
+  });
+}
+function visible(it){
+  const c = it.show_if; if (!c) return true;
+  const v = ans[c.id] || "";
+  if (byId[c.id] && !visible(byId[c.id])) return false;
+  if (c.eq !== undefined) return v === c.eq;
+  if (c.ne !== undefined) return (c.answered ? v !== "" : true) && v !== c.ne;
+  return true;
+}
+function answered(it){ return (ans[it.id] || "").toString().trim() !== ""; }
+function refresh(){
+  let need = 0, done = 0;
+  for (const it of SPEC.items){
+    if (!it._el) continue;
+    const vis = visible(it);
+    it._el.classList.toggle("hidden", !vis);
+    if (vis && it.required){ need++; if (answered(it)) { done++; it._el.classList.remove("missing"); } }
+  }
+  document.getElementById("prog").textContent = "必須 " + done + " / " + need;
+  document.getElementById("progbar").style.width = (need ? (100 * done / need) : 0) + "%";
+}
+let saveTimer = null;
+function afterChange(it){
+  if (it && it._el && answered(it)) it._el.classList.remove("missing");
+  refresh();
+  lastFile = null; document.getElementById("btnShare").hidden = true;
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => { try { localStorage.setItem(STORE_KEY, JSON.stringify({t: Date.now(), a: ans})); } catch(e) {} }, 300);
+}
+function restore(){
+  let saved = null;
+  try { saved = JSON.parse(localStorage.getItem(STORE_KEY) || "null"); } catch(e) {}
+  if (saved && saved.a && Object.values(saved.a).some(v => v)){
+    Object.assign(ans, saved.a);
+    document.getElementById("restored").classList.add("show");
+  }
+  for (const id in byId){
+    const it = byId[id];
+    if (it._input) it._input.value = ans[id] || "";
+    paint(it);
+  }
+  const d = byId[SPEC.items.find(x => x.input === "date")?.id];
+  if (d && !ans[d.id]){ const t = new Date(); const v = t.getFullYear() + "-" + String(t.getMonth()+1).padStart(2,"0") + "-" + String(t.getDate()).padStart(2,"0"); ans[d.id] = v; d._input.value = v; }
+  refresh();
+}
+function clearAll(){
+  if (!confirm("入力した内容をすべて消去します。よろしいですか？")) return;
+  try { localStorage.removeItem(STORE_KEY); } catch(e) {}
+  for (const k in ans) delete ans[k];
+  for (const id in byId){ const it = byId[id]; if (it._input) it._input.value = ""; paint(it); it._el.classList.remove("missing"); }
+  document.getElementById("restored").classList.remove("show");
+  lastFile = null; document.getElementById("btnShare").hidden = true; showMsg("", "");
+  restoreDateOnly(); refresh(); window.scrollTo({top:0});
+}
+function restoreDateOnly(){
+  const it = SPEC.items.find(x => x.input === "date"); if (!it) return;
+  const t = new Date(); const v = t.getFullYear() + "-" + String(t.getMonth()+1).padStart(2,"0") + "-" + String(t.getDate()).padStart(2,"0");
+  ans[it.id] = v; it._input.value = v;
+}
+
+/* ---------- 入力チェック ---------- */
+function validate(){
+  const missing = [], bad = [];
+  let qno = 0;
+  for (const it of SPEC.items){
+    if (it.numbered && it._el) qno++;
+    if (!it._el || !byId[it.id]) continue;
+    if (!visible(it)) continue;
+    if (it.required && !answered(it)){ missing.push({it, no: it.numbered ? qno : ""}); it._el.classList.add("missing"); }
+    const v = (ans[it.id] || "").trim();
+    if (v && it.input === "number"){
+      const n = Number(v), lab = it.label;
+      const max = /100%/.test(lab) ? 100 : lab.includes("年齢") ? 100 : 200;
+      if (!isFinite(n) || n < 0 || n > max) bad.push({it, no: it.numbered ? qno : "", msg: "0〜" + max + "の数字で入力してください"});
+    }
+  }
+  return {missing, bad};
+}
+
+/* ---------- Excelファイルの作成 ---------- */
+const NS = "http://schemas.openxmlformats.org/spreadsheetml/2006/main";
+function colNum(ref){ const m = ref.match(/^([A-Z]+)/)[1]; let n = 0; for (const ch of m) n = n * 26 + (ch.charCodeAt(0) - 64); return n; }
+function rowNum(ref){ return +ref.match(/(\d+)$/)[1]; }
+function getCell(doc, ref){
+  const sd = doc.getElementsByTagNameNS(NS, "sheetData")[0];
+  const rn = rowNum(ref);
+  let row = null;
+  for (const r of sd.getElementsByTagNameNS(NS, "row")){ if (+r.getAttribute("r") === rn){ row = r; break; } if (+r.getAttribute("r") > rn){ row = doc.createElementNS(NS, "row"); row.setAttribute("r", rn); sd.insertBefore(row, r); break; } }
+  if (!row){ row = doc.createElementNS(NS, "row"); row.setAttribute("r", rn); sd.appendChild(row); }
+  for (const c of row.getElementsByTagNameNS(NS, "c")){
+    if (c.getAttribute("r") === ref) return c;
+    if (colNum(c.getAttribute("r")) > colNum(ref)){ const n = doc.createElementNS(NS, "c"); n.setAttribute("r", ref); row.insertBefore(n, c); return n; }
+  }
+  const n = doc.createElementNS(NS, "c"); n.setAttribute("r", ref); row.appendChild(n); return n;
+}
+function writeCell(doc, ref, value){
+  const c = getCell(doc, ref);
+  while (c.firstChild) c.removeChild(c.firstChild);
+  if (typeof value === "number"){
+    c.removeAttribute("t");
+    const v = doc.createElementNS(NS, "v"); v.textContent = String(value); c.appendChild(v);
+  } else {
+    c.setAttribute("t", "inlineStr");
+    const is = doc.createElementNS(NS, "is"), t = doc.createElementNS(NS, "t");
+    t.setAttribute("xml:space", "preserve"); t.textContent = value; is.appendChild(t); c.appendChild(is);
+  }
+}
+function excelDate(s){ const [y,m,d] = s.split("-").map(Number); return Math.round((Date.UTC(y, m-1, d) - Date.UTC(1899, 11, 30)) / 86400000); }
+function excelTime(s){ const [h,mi] = s.split(":").map(Number); return (h * 60 + mi) / 1440; }
+
+async function makeXlsx(){
+  const res = await fetch("template.xlsx", {cache: "no-cache"});
+  if (!res.ok) throw new Error("ひな形ファイルを読み込めませんでした");
+  const zip = await JSZip.loadAsync(await res.arrayBuffer());
+  const path = "xl/worksheets/sheet1.xml";
+  const doc = new DOMParser().parseFromString(await zip.file(path).async("string"), "application/xml");
+  for (const id in byId){
+    const it = byId[id];
+    if (!visible(it)) continue;
+    const v = (ans[id] || "").toString();
+    if (!v.trim()) continue;
+    if (it.type === "choice"){
+      const o = it.options.find(o => o.label === v);
+      if (o) writeCell(doc, o.cell, 1);
+    } else if (it.input === "number" && isFinite(Number(v))){
+      writeCell(doc, it.cell, Number(v));
+    } else if (it.input === "time" && /^\d{1,2}:\d{2}/.test(v)){
+      writeCell(doc, it.cell, excelTime(v));
+    } else if (it.input === "date" && /^\d{4}-\d{2}-\d{2}$/.test(v)){
+      writeCell(doc, it.cell, excelDate(v));
+    } else {
+      writeCell(doc, it.cell, v);
+    }
+  }
+  zip.file(path, new XMLSerializer().serializeToString(doc));
+  const blob = await zip.generateAsync({type: "blob", mimeType: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", compression: "DEFLATE"});
+  const nameIt = SPEC.items.find(x => x.label === "氏名");
+  const dIt = SPEC.items.find(x => x.input === "date");
+  const nm = ((ans[nameIt?.id] || "").trim() || "未記入").replace(/[\\/:*?"<>|\s]+/g, "");
+  const dt = (ans[dIt?.id] || "").replace(/-/g, "") || new Date().toISOString().slice(0,10).replace(/-/g,"");
+  const now = new Date();
+  const hm = String(now.getHours()).padStart(2,"0") + String(now.getMinutes()).padStart(2,"0");
+  return {blob, name: "面談前アンケート_" + nm + "_" + dt + ".xlsx",          // 共有用（日本語名）
+          dlName: "mendan-mae_" + dt + "_" + hm + ".xlsx"};               // 保存用（英数字名：どの端末でも確実に保存できるように）
+}
+function download(blob, name){
+  const url = URL.createObjectURL(blob);
+  const a = el("a", {href: url, download: name}); document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 4000);
+}
+function showMsg(kind, html){
+  const m = document.getElementById("msg");
+  m.className = "msg" + (kind ? " show " + kind : ""); m.innerHTML = html;
+}
+
+async function onSave(){
+  const {missing, bad} = validate();
+  if (missing.length || bad.length){
+    const items = missing.map(x => '<li><a href="#box-' + x.it.id + '">' + (x.no ? "問" + x.no + "　" : "") + esc(x.it.label) + "</a></li>")
+      .concat(bad.map(x => '<li><a href="#box-' + x.it.id + '">' + (x.no ? "問" + x.no + "　" : "") + esc(x.msg) + "</a></li>"));
+    showMsg("err", "<strong>まだ回答していない質問があります（" + (missing.length + bad.length) + "件）。</strong>赤い枠の質問に回答してください。<ul>" + items.join("") + "</ul>");
+    const first = (missing[0] || bad[0]).it._el;
+    first.scrollIntoView({behavior: "smooth", block: "start"});
+    return;
+  }
+  try {
+    const {blob, name, dlName} = await makeXlsx();
+    lastFile = {blob, name};
+    download(blob, dlName);
+    let canShare = false;
+    try { canShare = !!(navigator.canShare && navigator.canShare({files: [new File([blob], name, {type: blob.type})]})); } catch(e) {}
+    document.getElementById("btnShare").hidden = !canShare;
+    showMsg("ok", "<strong>回答ファイル「" + esc(dlName) + "」を保存しました。</strong><br>" +
+      (canShare ? "「LINE・メールなどで送る」ボタンから、そのまま送ることもできます。" :
+                  "保存したファイルをメールなどに添付して、面談担当者へ送ってください。"));
+  } catch(e){
+    showMsg("err", "ファイルを作成できませんでした。通信状態をご確認のうえ、もう一度お試しください。（" + esc(e.message) + "）");
+  }
+}
+async function onShare(){
+  if (!lastFile) return;
+  try {
+    const f = new File([lastFile.blob], lastFile.name, {type: lastFile.blob.type});
+    await navigator.share({files: [f], title: lastFile.name});
+  } catch(e){ if (e && e.name !== "AbortError") showMsg("err", "共有できませんでした。保存したファイルを添付して送ってください。"); }
+}
+
+build(); restore();
+document.getElementById("btnSave").addEventListener("click", onSave);
+document.getElementById("btnShare").addEventListener("click", onShare);
+document.getElementById("btnPrint").addEventListener("click", () => window.print());
+document.getElementById("btnClear").addEventListener("click", clearAll);
+document.getElementById("restoredClear").addEventListener("click", clearAll);
+</script>
+</body>
+</html>
