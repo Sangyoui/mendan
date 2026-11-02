@@ -5,8 +5,7 @@
 | `index.html`（例：https://sangyoui.github.io/mendan/） | 全項目版（1．〜9．、疲労蓄積度の自動判定あり） |
 | `short.html`（例：https://sangyoui.github.io/mendan/short.html） | 1ページ目版（1．〜5．のみ） |
 
-- どちらも1ファイルで動きます（Excel作成用ライブラリ JSZip 3.10.1〈MIT License〉と回答ファイルのひな形を内蔵）。
+- 回答はアンケート用紙（Excel）と同じレイアウトのPDFになり、「LINE・メールなどで送る」で共有、または「PDFで保存する」で保存できます。
+- Excel形式での保存も可能です（全項目版は「判定（医師用）」シート付き）。
 - 入力内容は回答者の端末内だけで処理され、サーバーには送信・保存されません。
-- 回答者は最後に回答ファイル（Excel）を保存し、メール・LINE等で面談担当者へ送ります。
-  - 全項目版：mendan-mae_日付_時刻.xlsx（判定（医師用）シート付き）
-  - 1ページ目版：mendan-mae-1_日付_時刻.xlsx
+- どちらも1ファイルで動きます。内蔵ライブラリ：JSZip 3.10.1（MIT）、html2canvas 1.4.1（MIT）、jsPDF 2.5.1（MIT）。
