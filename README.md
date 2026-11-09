@@ -12,6 +12,7 @@
 - 産業医面談の前に記入していただく「面談前の生活・健康状態に関するアンケート」です。全項目版は1．〜9．（疲労蓄積度チェックリストの自動判定つき）、1ページ目版は1．〜5．のみです。
 - PC・スマホのブラウザで開くだけで記入できます。アプリのインストールやログインは不要です。
 - 回答が終わったら、ページ下の「回答を送る」から、アンケート用紙と同じ形のPDFにして、メール・LINE・その他のアプリ（Teams・Slack・Chatworkなど）で送っていただきます。
+- 「回答を送る」の前に、おくすり手帳の写真・おくすり手帳アプリのスクリーンショット（またはアプリが書き出したPDF）を任意で追加できます。写真・スクリーンショットは回答PDFの最後のページに入り、PDFファイルは回答PDFと一緒に送られます（Excelには含まれません）。
 
 ## 生活記録表（Web版）
 
@@ -26,27 +27,35 @@
 
 ## 会社別URL（メールで送る）
 
-URLを開くと、ページ下の「メールで送る」の送付先が、その会社のアドレスになります。
+URLを開くと、ページ下の「メールで送る」の送り先が、その会社のアドレスになります（回答者がPDFを添付したメールを送る形です）。
 
-| 会社（送付先） | 面談前アンケート | 面談前アンケート | 生活記録表 |
-|---|---|---|---|
-| 東京桜十字<br>（t-healthcare@sakurajyuji.jp） | [全項目版](https://sangyoui.github.io/mendan/?to=t-healthcare@sakurajyuji.jp) | [1ページ目版](https://sangyoui.github.io/mendan/short.html?to=t-healthcare@sakurajyuji.jp) | [生活記録表](https://sangyoui.github.io/seikatsu-kiroku/healthcare/?to=t-healthcare@sakurajyuji.jp) |
-| 三陽商会医務室<br>（y-imushitsu@sanyo-shokai.co.jp） | [全項目版](https://sangyoui.github.io/mendan/?to=y-imushitsu@sanyo-shokai.co.jp) | [1ページ目版](https://sangyoui.github.io/mendan/short.html?to=y-imushitsu@sanyo-shokai.co.jp) | [生活記録表](https://sangyoui.github.io/seikatsu-kiroku/healthcare/?to=y-imushitsu@sanyo-shokai.co.jp) |
-| アスマーク<br>（kanri-roumu@asmarq.co.jp） | [全項目版](https://sangyoui.github.io/mendan/?to=kanri-roumu@asmarq.co.jp) | [1ページ目版](https://sangyoui.github.io/mendan/short.html?to=kanri-roumu@asmarq.co.jp) | [生活記録表](https://sangyoui.github.io/seikatsu-kiroku/healthcare/?to=kanri-roumu@asmarq.co.jp) |
+### 東京桜十字（送り先：t-healthcare@sakurajyuji.jp）
 
-## 会社別URL（Googleドライブへ自動送信）
+| ページ | URL |
+|---|---|
+| 面談前アンケート（全項目版） | [https://sangyoui.github.io/mendan/?to=t-healthcare@sakurajyuji.jp](https://sangyoui.github.io/mendan/?to=t-healthcare@sakurajyuji.jp) |
+| 面談前アンケート（1ページ目版） | [https://sangyoui.github.io/mendan/short.html?to=t-healthcare@sakurajyuji.jp](https://sangyoui.github.io/mendan/short.html?to=t-healthcare@sakurajyuji.jp) |
+| 生活記録表 | [https://sangyoui.github.io/mendan/seikatsu-sakurajyuji/?to=t-healthcare@sakurajyuji.jp](https://sangyoui.github.io/mendan/seikatsu-sakurajyuji/?to=t-healthcare@sakurajyuji.jp) |
 
-URLの末尾に `?c=会社の記号` を付けると、「回答を送信する」ボタンが表示され、回答が産業医のGoogleドライブ（マイドライブ/産業医業務/会社フォルダ）に自動で保存されます。提出したことは会社の担当者にも通知されます（回答内容は通知されません）。
+### 三陽商会医務室（送り先：y-imushitsu@sanyo-shokai.co.jp）
 
-| 会社 | 面談前アンケート（全項目版） | 面談前アンケート（1ページ目版） | 生活記録表 |
-|---|---|---|---|
-| 株式会社イングリウッド | [https://sangyoui.github.io/mendan/?c=inglewood](https://sangyoui.github.io/mendan/?c=inglewood) | [https://sangyoui.github.io/mendan/short.html?c=inglewood](https://sangyoui.github.io/mendan/short.html?c=inglewood) | [https://sangyoui.github.io/seikatsu-kiroku/healthcare/?c=inglewood](https://sangyoui.github.io/seikatsu-kiroku/healthcare/?c=inglewood) |
+| ページ | URL |
+|---|---|
+| 面談前アンケート（全項目版） | [https://sangyoui.github.io/mendan/?to=y-imushitsu@sanyo-shokai.co.jp](https://sangyoui.github.io/mendan/?to=y-imushitsu@sanyo-shokai.co.jp) |
+| 面談前アンケート（1ページ目版） | [https://sangyoui.github.io/mendan/short.html?to=y-imushitsu@sanyo-shokai.co.jp](https://sangyoui.github.io/mendan/short.html?to=y-imushitsu@sanyo-shokai.co.jp) |
+| 生活記録表 | [https://sangyoui.github.io/mendan/seikatsu-sakurajyuji/?to=y-imushitsu@sanyo-shokai.co.jp](https://sangyoui.github.io/mendan/seikatsu-sakurajyuji/?to=y-imushitsu@sanyo-shokai.co.jp) |
 
-- 送信先の設定は `config.js`（受け取り窓口のURL・会社の記号）と、Googleドライブ側の Apps Script（保存先フォルダ・通知先）で行います。
+### アスマーク（送り先：kanri-roumu@asmarq.co.jp）
+
+| ページ | URL |
+|---|---|
+| 面談前アンケート（全項目版） | [https://sangyoui.github.io/mendan/?to=kanri-roumu@asmarq.co.jp](https://sangyoui.github.io/mendan/?to=kanri-roumu@asmarq.co.jp) |
+| 面談前アンケート（1ページ目版） | [https://sangyoui.github.io/mendan/short.html?to=kanri-roumu@asmarq.co.jp](https://sangyoui.github.io/mendan/short.html?to=kanri-roumu@asmarq.co.jp) |
+| 生活記録表 | [https://sangyoui.github.io/mendan/seikatsu-sakurajyuji/?to=kanri-roumu@asmarq.co.jp](https://sangyoui.github.io/mendan/seikatsu-sakurajyuji/?to=kanri-roumu@asmarq.co.jp) |
 
 ## 個人情報について
 
-- 入力内容は、記入する方の端末（ブラウザ）の中にだけ保存されます。会社別URLで「送信する」を押した場合のみ、産業医のGoogleドライブに保存されます。
+- 入力内容（おくすり手帳の画像を含む）は、記入する方の端末（ブラウザ）の中にだけ保存され、ご本人がメール・LINEなどで送るまで誰にも見えません。
 - このリポジトリには、記入用のページ（`index.html`、`short.html`、`seikatsu-sakurajyuji/index.html`、`seikatsu-sanyo/index.html`）だけを置いています。**記入済みの回答・記録（PDF・画像・Excel）は、このリポジトリに絶対にアップロードしないでください。**（このリポジトリは公開設定です）
 
 ## 更新のしかた

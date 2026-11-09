@@ -125,6 +125,23 @@ ol.wsteps .btn{margin-top:4px}
 .wm{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
 .wm .btn{width:auto;margin:0;padding:8px 14px;min-height:44px;font-size:16px;text-decoration:none}
 .btn[disabled]{opacity:.6;cursor:wait}
+.medcard{margin:32px 0 0;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
+.medcard h2{margin:0 0 8px;font-size:21px;color:var(--brand)}
+.medcard p{margin:0 0 8px}
+.medbtns{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
+.medbtns .btn{flex:1 1 220px;width:auto}
+.meds{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px}
+.meds:empty{display:none}
+.med{border:1px solid var(--line);border-radius:10px;padding:6px;display:grid;gap:4px;background:#fff}
+.med img{width:100%;height:120px;object-fit:cover;border-radius:6px;background:#eef3f6}
+.med .pdfic{height:120px;display:grid;place-items:center;border-radius:6px;background:#eef3f6;font-weight:700;color:var(--brand);font-size:20px}
+.med .nm{font-size:13px;color:var(--sub);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:center}
+.med button{font:inherit;font-size:15px;min-height:40px;border:1px solid #e3b5b1;border-radius:8px;background:#fff;color:var(--warn);cursor:pointer}
+.medmsg{margin:8px 0 0;font-size:16px;color:#2F7A4E;font-weight:700}
+.medmsg:empty{display:none}
+.medmsg.warn{color:var(--warn)}
+#medCount{font-weight:700;color:var(--brand);margin:8px 0 4px}
+#medCount:empty{display:none}
 .finish{margin:32px 0 0;background:var(--card);border:2px solid var(--brand);border-radius:var(--radius);padding:18px}
 .finish h2{margin:0 0 8px;font-size:21px;color:var(--brand)}
 .btn{appearance:none;font:inherit;font-size:18px;font-weight:700;border:0;border-radius:12px;padding:16px 18px;min-height:60px;width:100%;
@@ -188,11 +205,26 @@ footer{color:var(--sub);font-size:14px;margin:28px 0 0;text-align:center}
   <div class="restored" id="restored">前回の入力途中の内容を復元しました。<button type="button" class="btn plain" id="restoredClear" style="margin-top:8px">復元した内容を消して最初から入力する</button></div>
   <form id="form" autocomplete="off" novalidate></form>
 
+  <section class="medcard" id="medCard" aria-labelledby="medH">
+    <h2 id="medH">おくすり手帳（任意）</h2>
+    <p>内服している薬があれば、おくすり手帳の写真、またはおくすり手帳アプリのスクリーンショットをアップロードしてください。<b>画像がなくても大丈夫です。</b></p>
+    <div class="medbtns">
+      <button type="button" class="btn second" id="medCam">📷 写真を撮る</button>
+      <button type="button" class="btn second" id="medPick">写真・ファイルを選ぶ</button>
+    </div>
+    <input type="file" id="medCamIn" accept="image/*" capture="environment" hidden>
+    <input type="file" id="medPickIn" accept="image/*,application/pdf" multiple hidden>
+    <p id="medCount"></p>
+    <div class="meds" id="meds"></div>
+    <p class="medmsg" id="medMsg" role="status" aria-live="polite"></p>
+    <p class="small muted" style="margin-top:10px">写真・スクリーンショットは、回答と同じPDFの最後のページに入ります（撮影場所などの情報は取り除かれます）。アプリが書き出したPDFも選べます（回答のPDFと一緒に送ります）。お薬の名前と飲み方が読めるように撮ってください。</p>
+  </section>
+
   <div class="finish" id="finish">
     <h2>回答を送る</h2>
     <p style="margin:0">回答が終わったら、送り方を選んでください。どの方法でも、回答は紙のアンケート用紙と同じ形のPDFになって送られます。</p>
     <div id="autoBox" hidden>
-      <p class="consent">送信すると、回答（アンケート用紙と同じ形のPDF）が産業医に届きます。提出したことは<b class="coname"></b>のご担当者にも通知されます（<b>回答内容は通知されません</b>）。</p>
+      <p class="consent">送信すると、回答（アンケート用紙と同じ形のPDF）が産業医に届きます。おくすり手帳を追加した場合は、それも一緒に届きます。提出したことは<b class="coname"></b>のご担当者にも通知されます（<b>回答内容は通知されません</b>）。</p>
       <button type="button" class="btn primary big" id="btnSubmit">回答を送信する</button>
       <div class="done" id="doneBox" hidden>
         <p class="dh">✓ 送信が完了しました</p>
@@ -244,6 +276,7 @@ footer{color:var(--sub);font-size:14px;margin:28px 0 0;text-align:center}
           <li><b>保存したPDFを添付します</b><small>作成画面のクリップ（📎 添付）マークを押し、「ダウンロード」フォルダの「<span class="fname">mendan-mae_….pdf</span>」を選びます。ブラウザのダウンロード表示から、PDFを作成画面へドラッグしても添付できます。</small></li>
           <li><b>PDFが添付されていることを確かめて、送信します</b></li>
         </ol>
+        <p class="small extrapdf" hidden><b>おくすり手帳のPDFファイルを追加した場合は、そのファイルも一緒に添付してください。</b></p>
         <p class="small muted">※ブラウザのメールには、Webページから自動でファイルを添付する仕組みがないため、ご自身で添付していただく必要があります。</p>
       </div>
     </div>
@@ -255,6 +288,7 @@ footer{color:var(--sub);font-size:14px;margin:28px 0 0;text-align:center}
       </div>
       <div data-for="pc">
         <p class="small"><b>PDFを保存しました。</b>パソコン版のLINEで送り先のトークを開き、保存したPDF（「<span class="fname"></span>」）をトークの画面にドラッグして送信してください。</p>
+        <p class="small extrapdf" hidden><b>おくすり手帳のPDFファイルを追加した場合は、そのファイルも一緒に送ってください。</b></p>
       </div>
     </div>
     <div class="panel" id="pOther" hidden>
@@ -264,6 +298,7 @@ footer{color:var(--sub);font-size:14px;margin:28px 0 0;text-align:center}
       </div>
       <div data-for="pc">
         <p class="small"><b>PDFを保存しました。</b>Teams・Slack・Chatworkなどで送り先を開き、保存したPDF（「<span class="fname"></span>」）をドラッグするか、クリップ（＋）マークから選んで送信してください。</p>
+        <p class="small extrapdf" hidden><b>おくすり手帳のPDFファイルを追加した場合は、そのファイルも一緒に送ってください。</b></p>
       </div>
     </div>
     </div>
@@ -851,6 +886,90 @@ function renderFatigue(){
     '<p class="rn">※厚生労働省「労働者の疲労蓄積度自己診断チェックリスト（2023年改正版）」に基づく判定です。糖尿病、高血圧症などの病気がある方は、正しく判定できない場合があります。</p>';
 }
 
+/* ---------- おくすり手帳（任意）：生活記録表と同じ方式 ---------- */
+// 写真・スクリーンショット → 縮小して（撮影場所などの情報を除いて）回答PDFの最後のページに入れる
+// PDFファイル（アプリの書き出し）→ 回答PDFと一緒に送る
+let MEDS = [];               // {kind:"img", data, w, h} | {kind:"pdf", file, name}
+const MED_MAX = 8, MED_KEY = STORE_KEY + "-meds";
+const MED_COARSE = (() => { try { return window.matchMedia("(pointer: coarse)").matches; } catch(e) { return false; } })();
+try { const mr = localStorage.getItem(MED_KEY); if (mr) MEDS = JSON.parse(mr).filter(m => m && m.kind === "img" && m.data); } catch(e) {}
+function saveMeds(){
+  try { localStorage.setItem(MED_KEY, JSON.stringify(MEDS.filter(m => m.kind === "img"))); return true; }
+  catch(e){ try { localStorage.removeItem(MED_KEY); } catch(e2) {} return false; }
+}
+function medPdfs(){ return MEDS.filter(m => m.kind === "pdf" && m.file); }
+function renderMeds(){
+  const g = document.getElementById("meds");
+  g.innerHTML = MEDS.map((m, i) => '<div class="med">' +
+    (m.kind === "img" ? '<img src="' + m.data + '" alt="おくすり手帳の画像 ' + (i + 1) + '">' : '<div class="pdfic">PDF</div>') +
+    '<div class="nm">' + (m.kind === "img" ? (i + 1) + "枚目" : esc(m.name || "PDF")) + '</div>' +
+    '<button type="button" data-del="' + i + '" aria-label="' + (i + 1) + '件目を削除">削除</button></div>').join("");
+  document.getElementById("medCam").hidden = !MED_COARSE;
+  document.getElementById("medCount").textContent = MEDS.length ? "追加済み：" + MEDS.length + "件" : "";
+  const hasPdf = medPdfs().length > 0;
+  document.querySelectorAll(".extrapdf").forEach(e => e.hidden = !hasPdf);
+}
+function loadImg(file){
+  return new Promise((res, rej) => { const u = URL.createObjectURL(file); const im = new Image();
+    im.onload = () => { res(im); setTimeout(() => URL.revokeObjectURL(u), 1000); };
+    im.onerror = () => { URL.revokeObjectURL(u); rej(new Error("bad image")); }; im.src = u; });
+}
+async function addMedFiles(list){
+  const files = [...(list || [])]; if (!files.length) return;
+  let room = MED_MAX - MEDS.length, bad = 0, n = 0, over = false;
+  for (const f of files){
+    if (room <= 0){ over = true; break; }
+    if (f.type === "application/pdf" || /\.pdf$/i.test(f.name)){
+      if (f.size > 10 * 1024 * 1024){ bad++; continue; }
+      MEDS.push({kind: "pdf", file: f, name: f.name}); room--; n++; continue;
+    }
+    try {
+      const im = await loadImg(f);
+      const sc = Math.min(1, 1600 / Math.max(im.naturalWidth, im.naturalHeight));
+      const c = document.createElement("canvas"); c.width = Math.round(im.naturalWidth * sc); c.height = Math.round(im.naturalHeight * sc);
+      const g = c.getContext("2d"); g.fillStyle = "#fff"; g.fillRect(0, 0, c.width, c.height); g.drawImage(im, 0, 0, c.width, c.height);
+      MEDS.push({kind: "img", data: c.toDataURL("image/jpeg", 0.8), w: c.width, h: c.height}); room--; n++;
+    } catch(e){ bad++; }
+  }
+  const ok = saveMeds(); renderMeds(); medsChanged();
+  const t = [];
+  if (n) t.push(ok ? "おくすり手帳を" + n + "件追加しました。" : "おくすり手帳を" + n + "件追加しました。容量の都合でこの端末には保存できないため、このまま送ってください（画面を閉じると消えます）。");
+  if (over) t.push("追加できるのは" + MED_MAX + "件までです。");
+  if (bad) t.push("読み込めなかったファイルが" + bad + "件あります（写真・スクリーンショット・10MBまでのPDFが追加できます）。");
+  medMsg(t.join(""), !!bad || over);
+}
+function medMsg(t, warn){ const m = document.getElementById("medMsg"); m.textContent = t; m.className = "medmsg" + (warn ? " warn" : ""); }
+function medsChanged(){
+  lastFile = null; lastPdf = null; ver++;
+  clearTimeout(prebuildTimer);
+  if (SHARE_OK && allDone()) prebuildTimer = setTimeout(() => { ensurePdf().catch(() => {}); }, 1500);
+}
+document.getElementById("medCam").addEventListener("click", () => document.getElementById("medCamIn").click());
+document.getElementById("medPick").addEventListener("click", () => document.getElementById("medPickIn").click());
+["medCamIn", "medPickIn"].forEach(id => document.getElementById(id).addEventListener("change", async function(){ await addMedFiles(this.files); this.value = ""; }));
+document.getElementById("meds").addEventListener("click", e => {
+  const b = e.target.closest("[data-del]"); if (!b) return;
+  MEDS.splice(+b.dataset.del, 1); saveMeds(); renderMeds(); medsChanged(); medMsg("削除しました。");
+});
+renderMeds();
+/* PDFに付けるページ：A4（横長の画像は横向き）に「見出し・氏名＋画像」を描く */
+function medPageImage(m, i, n){
+  const land = m.w > m.h, W = land ? 1754 : 1240, H = land ? 1240 : 1754, P = 60, TOP = 150;
+  const c = document.createElement("canvas"); c.width = W; c.height = H;
+  const g = c.getContext("2d"); g.fillStyle = "#fff"; g.fillRect(0, 0, W, H);
+  const F = "'BIZ UDPGothic','Hiragino Sans','Meiryo','Noto Sans JP',sans-serif";
+  g.fillStyle = "#1F4E79"; g.fillRect(P, P, W - 2 * P, 64);
+  g.fillStyle = "#fff"; g.font = "bold 32px " + F; g.textBaseline = "middle";
+  g.fillText("おくすり手帳（" + (i + 1) + " / " + n + "）", P + 20, P + 32);
+  g.fillStyle = "#333"; g.font = "28px " + F;
+  g.fillText("氏名：" + (nameVal() || "（未記入）"), P + 10, TOP - 12);
+  const aw = W - 2 * P, ah = H - TOP - P - 10, sc = Math.min(aw / m.w, ah / m.h), iw = m.w * sc, ih = m.h * sc;
+  return new Promise(res => { const im = new Image(); im.onload = () => {
+    g.drawImage(im, P + (aw - iw) / 2, TOP + 10, iw, ih);
+    g.strokeStyle = "#ccc"; g.lineWidth = 2; g.strokeRect(P + (aw - iw) / 2, TOP + 10, iw, ih);
+    res({url: c.toDataURL("image/jpeg", 0.85), land}); }; im.src = m.data; });
+}
+
 /* ---------- 回答の操作 ---------- */
 function choose(it, label){
   ans[it.id] = (ans[it.id] === label) ? "" : label;     // 同じものを押すと外れる
@@ -919,6 +1038,7 @@ function clearAll(){
   if (!confirm("入力した内容をすべて消去します。よろしいですか？")) return;
   try { localStorage.removeItem(STORE_KEY); } catch(e) {}
   for (const k in ans) delete ans[k];
+  MEDS = []; try { localStorage.removeItem(MED_KEY); } catch(e) {} renderMeds(); medMsg("");
   for (const id in byId){ const it = byId[id]; if (it._input) it._input.value = ""; paint(it); it._el.classList.remove("missing"); }
   document.getElementById("restored").classList.remove("show");
   lastFile = null; lastPdf = null; ver++; showMsg("", "");
@@ -1111,6 +1231,12 @@ async function makePdf(){
     if (i > 0) pdf.addPage();
     pdf.addImage(img, "JPEG", (210 - w) / 2, 8, w, h);
   }
+  const imgs = MEDS.filter(m => m.kind === "img");
+  for (let i = 0; i < imgs.length; i++){
+    const pg = await medPageImage(imgs[i], i, imgs.length);
+    pdf.addPage("a4", pg.land ? "l" : "p");
+    pdf.addImage(pg.url, "JPEG", 0, 0, pg.land ? 297 : 210, pg.land ? 210 : 297);
+  }
   const fb = fileBase();
   return {blob: pdf.output("blob"), name: fb.jp + ".pdf", dlName: fb.en + ".pdf", ver: myVer};
 }
@@ -1146,6 +1272,7 @@ async function submitAnswers(){
   try {
     const pdf = await ensurePdf();
     const files = [{mime: "application/pdf", b64: await blobToB64(pdf.blob), label: ""}];
+    for (const [k, m] of medPdfs().entries()) files.push({mime: "application/pdf", b64: await blobToB64(m.file), label: "おくすり手帳" + (k + 1)});
     try { const x = await makeXlsx(); files.push({mime: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", b64: await blobToB64(x.blob), label: "Excel"}); } catch(e) {}
     const payload = {key: SUB.key || "", c: COMPANY, form: "mendan", variant: VARIANT === "short" ? "1ページ目版" : "全項目版", name: nameVal(), files};
     const ctrl = ("AbortController" in window) ? new AbortController() : null;
@@ -1205,7 +1332,7 @@ function bodyApp(){ return bodyText() + LINE_ + "このメールの「宛先」�
 function bodyWeb(){
   const fn = (lastPdf && lastPdf.dlName) || "mendan-mae_（日付）_（時刻）.pdf";
   return "面談前アンケートを提出します。" + (nameVal() ? "\n" + nameVal() : "") + LINE_ +
-    "面談前アンケートのPDFを、このメールに添付してから送信してください。\n\n添付するファイル：" + fn + "\n（パソコンの「ダウンロード」フォルダに保存されています）\n\n※添付を忘れると、回答が届きません。";
+    "面談前アンケートのPDFを、このメールに添付してから送信してください。\n\n添付するファイル：" + fn + "\n（パソコンの「ダウンロード」フォルダに保存されています）" + (medPdfs().length ? "\n※おくすり手帳のPDFファイルを追加した方は、そのファイルも添付してください。" : "") + "\n\n※添付を忘れると、回答が届きません。";
 }
 async function getPdf(){
   let r = (lastPdf && lastPdf.ver === ver) ? lastPdf : null;
@@ -1225,7 +1352,10 @@ async function savePdfFile(){
 async function sharePdf(kind){
   let r;
   try { r = await getPdf(); } catch(e){ showMsg("err", "PDFを作成できませんでした。（" + esc(e.message) + "）"); return; }
-  const data = {files: [new File([r.blob], r.name, {type: "application/pdf"})], title: subject()};
+  let files = [new File([r.blob], r.name, {type: "application/pdf"})].concat(medPdfs().map(m => m.file));
+  if (files.length > 1){ let can = false; try { can = navigator.canShare({files}); } catch(e) {}
+    if (!can){ files = files.slice(0, 1); showMsg("ok", "おくすり手帳のPDFは一緒に送れなかったため、別に送ってください。"); } }
+  const data = {files, title: subject()};
   if (kind === "mail") data.text = bodyApp();
   try {
     await navigator.share(data);
