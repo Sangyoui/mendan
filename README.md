@@ -24,9 +24,19 @@
 - PC・スマホのブラウザで開くだけで記入できます。アプリのインストールやログインは不要です。
 - 記入が終わったら、「③ 送る」の画面から、記録をPDFにして、メール・LINE・その他のアプリ（Teams・Slack・Chatworkなど）で担当者へ送っていただきます。スマホでは、PDFが添付された状態でメールやLINEが開きます。
 
+## 会社別URL（Googleドライブへ自動送信）
+
+URLの末尾に `?c=会社の記号` を付けると、「回答を送信する」ボタンが表示され、回答が産業医のGoogleドライブ（マイドライブ/産業医業務/会社フォルダ）に自動で保存されます。提出したことは会社の担当者にも通知されます（回答内容は通知されません）。
+
+| 会社 | 面談前アンケート（全項目版） | 面談前アンケート（1ページ目版） | 生活記録表 |
+|---|---|---|---|
+| 株式会社イングリウッド | [https://sangyoui.github.io/mendan/?c=inglewood](https://sangyoui.github.io/mendan/?c=inglewood) | [https://sangyoui.github.io/mendan/short.html?c=inglewood](https://sangyoui.github.io/mendan/short.html?c=inglewood) | [https://sangyoui.github.io/seikatsu-kiroku/healthcare/?c=inglewood](https://sangyoui.github.io/seikatsu-kiroku/healthcare/?c=inglewood) |
+
+- 送信先の設定は `config.js`（受け取り窓口のURL・会社の記号）と、Googleドライブ側の Apps Script（保存先フォルダ・通知先）で行います。
+
 ## 個人情報について
 
-- 入力内容は、記入する方の端末（ブラウザ）の中にだけ保存され、インターネット上には送信されません。
+- 入力内容は、記入する方の端末（ブラウザ）の中にだけ保存されます。会社別URLで「送信する」を押した場合のみ、産業医のGoogleドライブに保存されます。
 - このリポジトリには、記入用のページ（`index.html`、`short.html`、`seikatsu-sakurajyuji/index.html`、`seikatsu-sanyo/index.html`）だけを置いています。**記入済みの回答・記録（PDF・画像・Excel）は、このリポジトリに絶対にアップロードしないでください。**（このリポジトリは公開設定です）
 
 ## 更新のしかた
