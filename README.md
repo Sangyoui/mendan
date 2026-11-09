@@ -24,6 +24,16 @@
 - PC・スマホのブラウザで開くだけで記入できます。アプリのインストールやログインは不要です。
 - 記入が終わったら、「③ 送る」の画面から、記録をPDFにして、メール・LINE・その他のアプリ（Teams・Slack・Chatworkなど）で担当者へ送っていただきます。スマホでは、PDFが添付された状態でメールやLINEが開きます。
 
+## 会社別URL（メールで送る）
+
+URLを開くと、ページ下の「メールで送る」の送付先が、その会社のアドレスになります。
+
+| 会社（送付先） | 面談前アンケート | 面談前アンケート | 生活記録表 |
+|---|---|---|---|
+| 東京桜十字<br>（t-healthcare@sakurajyuji.jp） | [全項目版](https://sangyoui.github.io/mendan/?to=t-healthcare@sakurajyuji.jp) | [1ページ目版](https://sangyoui.github.io/mendan/short.html?to=t-healthcare@sakurajyuji.jp) | [生活記録表](https://sangyoui.github.io/seikatsu-kiroku/healthcare/?to=t-healthcare@sakurajyuji.jp) |
+| 三陽商会医務室<br>（y-imushitsu@sanyo-shokai.co.jp） | [全項目版](https://sangyoui.github.io/mendan/?to=y-imushitsu@sanyo-shokai.co.jp) | [1ページ目版](https://sangyoui.github.io/mendan/short.html?to=y-imushitsu@sanyo-shokai.co.jp) | [生活記録表](https://sangyoui.github.io/seikatsu-kiroku/healthcare/?to=y-imushitsu@sanyo-shokai.co.jp) |
+| アスマーク<br>（kanri-roumu@asmarq.co.jp） | [全項目版](https://sangyoui.github.io/mendan/?to=kanri-roumu@asmarq.co.jp) | [1ページ目版](https://sangyoui.github.io/mendan/short.html?to=kanri-roumu@asmarq.co.jp) | [生活記録表](https://sangyoui.github.io/seikatsu-kiroku/healthcare/?to=kanri-roumu@asmarq.co.jp) |
+
 ## 会社別URL（Googleドライブへ自動送信）
 
 URLの末尾に `?c=会社の記号` を付けると、「回答を送信する」ボタンが表示され、回答が産業医のGoogleドライブ（マイドライブ/産業医業務/会社フォルダ）に自動で保存されます。提出したことは会社の担当者にも通知されます（回答内容は通知されません）。
