@@ -9,17 +9,17 @@ URLを開くと、ページ下の「メールで送る」の送り先が、そ�
 ### 東京桜十字（送り先：t-healthcare@sakurajyuji.jp）
 
 - 全項目版：[https://sangyoui.github.io/mendan/?to=t-healthcare@sakurajyuji.jp](https://sangyoui.github.io/mendan/?to=t-healthcare@sakurajyuji.jp)
-- 1ページ目版：[https://sangyoui.github.io/mendan/short.html?to=t-healthcare@sakurajyuji.jp](https://sangyoui.github.io/mendan/short.html?to=t-healthcare@sakurajyuji.jp)
+- 短縮版：[https://sangyoui.github.io/mendan/short.html?to=t-healthcare@sakurajyuji.jp](https://sangyoui.github.io/mendan/short.html?to=t-healthcare@sakurajyuji.jp)
 
 ### 三陽商会医務室（送り先：y-imushitsu@sanyo-shokai.co.jp）
 
 - 全項目版：[https://sangyoui.github.io/mendan/?to=y-imushitsu@sanyo-shokai.co.jp](https://sangyoui.github.io/mendan/?to=y-imushitsu@sanyo-shokai.co.jp)
-- 1ページ目版：[https://sangyoui.github.io/mendan/short.html?to=y-imushitsu@sanyo-shokai.co.jp](https://sangyoui.github.io/mendan/short.html?to=y-imushitsu@sanyo-shokai.co.jp)
+- 短縮版：[https://sangyoui.github.io/mendan/short.html?to=y-imushitsu@sanyo-shokai.co.jp](https://sangyoui.github.io/mendan/short.html?to=y-imushitsu@sanyo-shokai.co.jp)
 
 ### アスマーク（送り先：kanri-roumu@asmarq.co.jp）
 
 - 全項目版：[https://sangyoui.github.io/mendan/?to=kanri-roumu@asmarq.co.jp](https://sangyoui.github.io/mendan/?to=kanri-roumu@asmarq.co.jp)
-- 1ページ目版：[https://sangyoui.github.io/mendan/short.html?to=kanri-roumu@asmarq.co.jp](https://sangyoui.github.io/mendan/short.html?to=kanri-roumu@asmarq.co.jp)
+- 短縮版：[https://sangyoui.github.io/mendan/short.html?to=kanri-roumu@asmarq.co.jp](https://sangyoui.github.io/mendan/short.html?to=kanri-roumu@asmarq.co.jp)
 
 ## 個人情報について
 
